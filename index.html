@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resepin - Temukan & Masak Resep Favoritmu</title>
+    <!-- Font & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="#" class="logo">
+                <i class="fas fa-utensils"></i> Resep<span>in</span>
+            </a>
+
+            <div class="nav-actions">
+                <button id="fav-filter-btn" class="btn-icon" title="Resep Favorit">
+                    <i class="far fa-heart"></i>
+                    <span id="fav-count" class="badge">0</span>
+                </button>
+                
+                <button id="theme-toggle" class="btn-icon" title="Ganti Tema">
+                    <i class="fas fa-moon"></i>
+                </button>
+
+                <!-- Area Auth (Berubah otomatis saat login) -->
+                <div id="auth-area">
+                    <button id="open-auth-btn" class="btn-primary">Masuk / Daftar</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section & Search -->
+    <header class="hero">
+        <div class="container hero-content">
+            <h1>Mau Masak Apa Hari Ini?</h1>
+            <p>Jelajahi ribuan resep nusantara dan internasional lengkap dengan takaran akurat dan langkah mudah.</p>
+            
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="search-input" placeholder="Cari nama masakan atau bahan (cth: ayam, rendang, pasta)...">
+                <button id="clear-search" class="clear-btn hidden"><i class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Kategori Filter -->
+            <div class="categories" id="category-filters">
+                <button class="cat-btn active" data-category="Semua">Semua</button>
+                <button class="cat-btn" data-category="Nusantara">Nusantara</button>
+                <button class="cat-btn" data-category="Sarapan">Sarapan</button>
+                <button class="cat-btn" data-category="Makanan Utama">Makanan Utama</button>
+                <button class="cat-btn" data-category="Dessert">Dessert & Kue</button>
+                <button class="cat-btn" data-category="Minuman">Minuman</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content: Grid Resep -->
+    <main class="container main-section">
+        <div class="section-header">
+            <h2 id="section-title">Semua Resep Pilihan</h2>
+            <span id="recipe-count">Menampilkan 0 resep</span>
+        </div>
+
+        <div id="recipe-grid" class="recipe-grid">
+            <!-- Kartu resep dirender melalui JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="empty-state hidden">
+            <i class="fas fa-plate-wheat"></i>
+            <h3>Resep tidak ditemukan</h3>
+            <p>Coba gunakan kata kunci lain atau ubah filter kategori.</p>
+        </div>
+    </main>
+
+    <!-- Modal Detail Resep -->
+    <div id="recipe-modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-container recipe-detail-modal">
+            <button class="modal-close" id="close-recipe-modal"><i class="fas fa-times"></i></button>
+            <div id="modal-recipe-content">
+                <!-- Detail resep dirender via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Login / Daftar Akun -->
+    <div id="auth-modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-container auth-modal-box">
+            <button class="modal-close" id="close-auth-modal"><i class="fas fa-times"></i></button>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Masuk</button>
+                <button class="auth-tab" data-tab="register">Daftar Akun</button>
+            </div>
+
+            <!-- Form Login -->
+            <form id="login-form" class="auth-form">
+                <h3>Selamat Datang Kembali!</h3>
+                <p class="auth-subtitle">Masuk untuk menyimpan resep favoritmu.</p>
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="login-email" required placeholder="nama@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Kata Sandi</label>
+                    <input type="password" id="login-password" required placeholder="••••••••">
+                </div>
+                <p id="login-error" class="error-msg hidden"></p>
+                <button type="submit" class="btn-primary full-width">Masuk Sekarang</button>
+            </form>
+
+            <!-- Form Register -->
+            <form id="register-form" class="auth-form hidden">
+                <h3>Buat Akun Resepin</h3>
+                <p class="auth-subtitle">Gratis selamanya untuk pecinta masak.</p>
+                
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" id="reg-name" required placeholder="Chef Budi">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="reg-email" required placeholder="nama@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Kata Sandi</label>
+                    <input type="password" id="reg-password" required minlength="6" placeholder="Minimal 6 karakter">
+                </div>
+                <p id="reg-error" class="error-msg hidden"></p>
+                <button type="submit" class="btn-primary full-width">Daftar Akun</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 <strong>Resepin</strong>. Dibuat dengan cinta untuk para pecinta kuliner.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
